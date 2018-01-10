@@ -15,9 +15,14 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('blade', function () {
+    return view('child');
+});
+
 //Controller routes
 Route::resource('admin','AdminController');
 Route::resource('car','CarController');
+Route::resource('stats','StatsController');
 Route::resource('intervention','InterventionController');
 Route::resource('interventionType','InterventionTypeController');
 Route::resource('map','MapController');

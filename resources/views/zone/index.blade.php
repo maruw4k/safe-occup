@@ -1,7 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Lista Stref</h1>
+<div class="flex-container">
+    <div style="flex-grow: 5">
+        <h1>Lista stref</h1>
+    </div>
+    <div style="flex-grow: 5">
+        <div>
+            <a class="btn icon-btn btn-success add-button" href="{{ URL::to('zone/create') }}">
+    <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+    Dodaj
+    </a>
+        </div>
+    </div>
+</div>
 
     <!-- will be used to show any messages -->
     @if (Session::has('message'))
@@ -27,7 +39,7 @@
                     @endforeach
                 </td>
                 <td>
-                    <a class="btn btn-small btn-success" href="{{ URL::to('zone/' . $value->id) }}">Pokaż</a>
+                    <a class="btn btn-small btn-success" href="{{ URL::to('zone/' . $value->id) }}">Pokaż na mapie</a>
                     <a class="btn btn-small btn-info" href="{{ URL::to('zone/' . $value->id . '/edit') }}">Edytuj</a>
                     <a class="btn btn-small btn-danger" href="{{ URL::to('zone/' . $value->id . '/destroy') }}">Usuń</a>
 

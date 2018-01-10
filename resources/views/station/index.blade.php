@@ -1,7 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Lista Posterunków</h1>
+<div class="flex-container">
+    <div style="flex-grow: 5">
+        <h1>Lista posterunków</h1>
+    </div>
+    <div style="flex-grow: 5">
+        <div>
+            <a class="btn icon-btn btn-success add-button" href="{{ URL::to('station/create') }}">
+    <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+    Dodaj
+    </a>
+        </div>
+    </div>
+</div>
 
     <!-- will be used to show any messages -->
     @if (Session::has('message'))

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,74 +9,91 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>SafeOccup</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>ul {
+
+    <!--    dodane-->
+
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
+
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+
+    <!--//theme-style-->
+
+    <style>
+        ul {
             list-style: none;
         }
+
     </style>
 </head>
+
 <body>
+
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <div class="header"> </div>
+        <div class="header-top">
             <div class="container">
-                <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                <div class="logo">
+                    <h3 style="color: #e0cb57;"><a style=" color: inherit; text-decoration: inherit; " href="{{ URL::to('home/')}}">SafeOccup</a></h3>
                 </div>
+                <div class="top-nav">
+                    <ul>
+                        @if (Auth::user())
+                        <li><a href="{{ URL::to('intervention/') }}"> Interwencje </a></li>
+                        <li><a href="{{ URL::to('officer/') }}"> Strażnicy </a></li>
+                        <li><a href="{{ URL::to('zone/') }}"> Strefy </a></li>
+                        <li><a href="{{ URL::to('stats/') }}"> Statystyki </a></li>
+                        @endif
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav"></ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                        <li><a href="{{ route('login') }}">Zaloguj</a></li>
+                        <li><a href="{{ route('register') }}">Rejestracja</a></li>
                         @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
+                                        Wyloguj
+                                    </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
                         @endif
+                        <div class="clearfix"></div>
                     </ul>
+                    <script>
+                        $("span.menu").click(function() {
+                            $(".top-nav ul").slideToggle(500, function() {});
+                        });
+
+                    </script>
                 </div>
+                <div class="clearfix"></div>
             </div>
-        </nav>
+        </div>
+
+
         <div class="container">
             <div class="row">
+
+                @if (Auth::user())
                 <div class="col-md-3">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default padding-top-section">
                         <div class="panel-heading">Menu</div>
 
                         <div class="panel-body">
@@ -124,6 +142,10 @@
                                 <li><a href="{{ URL::to('interventionType/') }}">Lista typów interwencji</a></li>
                                 <li><a href="{{ URL::to('interventionType/create') }}">Utwórz typ interwencji</a></li>
                             </ul>
+                            <h3>Statystyki</h3>
+                            <ul>
+                                <li><a href="{{ URL::to('stats/') }}">Lista statystyk</a></li>
+                            </ul>
                             <h3>Użytkownicy</h3>
                             <ul>
                                 <li><a href="{{ URL::to('user/') }}">Lista Użytkowników</a></li>
@@ -137,13 +159,32 @@
                         </div>
                     </div>
                 </div>
+                @endif
+
                 <div class="col-md-9">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Dashboard</div>
+                    <div class="panel panel-default padding-top-section">
+                        <div class="panel-heading">Panel główny</div>
                         <div class="panel-body">
                             @yield('content')
                         </div>
                     </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container">
+                <div class="footer-top">
+                    <ul class="social">
+                        <li><a href="#"><i> </i></a></li>
+                        <li><a href="#"><i class="rss"> </i></a></li>
+                        <li><a href="#"><i class="twitter"> </i></a></li>
+                        <li><a href="#"><i class="dribble"> </i></a></li>
+                        <li><a href="#"><i class="linked"> </i></a></li>
+                        <li><a href="#"><i class="camera"> </i></a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -152,4 +193,5 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
+
 </html>
