@@ -15,9 +15,6 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('blade', function () {
-    return view('child');
-});
 
 //Controller routes
 Route::resource('admin','AdminController');

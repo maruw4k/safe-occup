@@ -54,7 +54,7 @@ class MapController extends Controller
           $item->save();
 
           // redirect
-          Session::flash('message', 'Utworzono nowy mapę!');
+          Session::flash('message', 'Utworzono nową mapę!');
           return redirect('/map');
       }
   }
