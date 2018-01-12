@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@include('layouts.officer_sidebar')
-
 @section('content')
     <h1>Strażnik: {{ $item->id }}</h1>
     <div class="jumbotron text-center">
